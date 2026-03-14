@@ -25,20 +25,29 @@ if "df" not in st.session_state:
 if "topic" not in st.session_state:
     st.session_state.topic = ""
 
-st.title("Forethought")
-st.subheader("Build your worldview from the ground up. Study. Debate. Grow.")
+st.set_page_config(
+    page_title="Forethought",
+    layout="wide"
+)
 
-if st.session_state.stage == "topic":
-    st.write("Enter a contentious topic to explore ... ")
-    topic_input = st.text_input("Topic", placeholder="E.g. Do people truly have free will, or is fate predetermined?")
-    if st.button("Dive In"):
-        if topic_input.strip() == "":
-            st.warning("Please enter a topic first.")
-        else:
-            st.spinner("Finding the best thinkers ...")
-            df = functions.get_call1(topic_input)
-            st.dataframe(df)
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+    
+    * {
+        font-family: 'Montserrat', sans-serif !important;
+    }
+                      
+    h1, h2, h3 {
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 700;
+    }
+     
+    </style>
+""", unsafe_allow_html=True)
 
-            st.session_state.topic = topic_input
-            st.session_state.df = df
-            st.session_state.stage = "figure selection"
+st.sidebar.markdown("""<div style='text-align: center'>
+        <h1>Forethought</h1>
+        <p>Build your worldview from the ground up</p>
+    </div>
+""",unsafe_allow_html=True)
