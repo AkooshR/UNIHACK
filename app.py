@@ -7,14 +7,6 @@ import os
 import pandas as pd
 import json
 
-system_prompt = """You are staging a formal debate between two real historical figures. 
-
-Rules:
-- Voice each speaker authentically, grounded in their documented writings and philosophy
-- Each speaker must argue from their actual worldview — do not invent positions they never held
-- Stay in character throughout. Do not break the fourth wall or explain what you are doing
-- The debate should be intellectually rigorous but accessible
-- Each speaker should directly challenge the other's points, not just monologue"""
 
 # Sets three variables to store throughout the app's usage: the stage we are in, the dataframe outputted by claude, the topic that the user inputs.
 # Three stages: "topic", "figure selection", "debate"
@@ -28,6 +20,8 @@ if "page" not in st.session_state:
     st.session_state.page = "Debate Room"
 if "selected" not in st.session_state:
     st.session_state.selected = []
+if "debate" not in st.session_state:
+    st.session_state.debate = ""
 
 # Configuring the page and sidebar
 
@@ -111,8 +105,9 @@ def show_figure_selection():
         if len(st.session_state.selected) != 2:
             st.warning("Please select exactly 2 people.")
         else:
-            st.session_state.stage = "debate"
-            st.session_state.debate = functions.get_call2(st.session_state.selected[0],st.session_state.selected[1],st.session_state.topic,st.session_state.df)
+            with st.spinner("Generating debate..."):
+                st.session_state.debate = functions.get_call2(st.session_state.selected[0],st.session_state.selected[1],st.session_state.topic,st.session_state.df)
+                st.session_state.stage = "debate"
             st.rerun()
                 
 def show_debate():

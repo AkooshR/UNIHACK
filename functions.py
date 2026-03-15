@@ -5,6 +5,15 @@ import os
 import pandas as pd
 import json
 
+system_prompt = """You are staging a formal debate between two real historical figures. 
+
+Rules:
+- Voice each speaker authentically, grounded in their documented writings and philosophy
+- Each speaker must argue from their actual worldview — do not invent positions they never held
+- Stay in character throughout. Do not break the fourth wall or explain what you are doing
+- The debate should be intellectually rigorous but accessible
+- Each speaker should directly challenge the other's points, not just monologue"""
+
 # Load in the API key
 load_dotenv(dotenv_path=Path(__file__).with_name(".env"))
 API_KEY = str(os.getenv("MY_API"))
