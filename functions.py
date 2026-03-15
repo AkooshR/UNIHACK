@@ -49,7 +49,7 @@ def get_call1(userinput):
     return pd.DataFrame(data)
 
 # Converts a user's index choices for two figures and a debate topic into a detailed prompt for Claude to generate a structured debate between those two figures, including background information and a specified format for the debate.
-def convert_people_to_prompt(figure1, figure2, topic):
+def convert_people_to_prompt(figure1, figure2, topic,df):
     figure1 = int(figure1)
     figure2 = int(figure2)
     return f"""Stage a debate between {df.loc[figure1, 'name']} and {df.loc[figure2, 'name']} on the following topic:
@@ -78,5 +78,5 @@ Label each speaker clearly by their last name.
 """
 
 # Takes the user's figure selections and debate topic, calls Claude with the appropriate prompt to generate a structured debate between the two selected figures, and returns the debate text.
-def get_call2(figure1, figure2, topic):
-    return call_claude(convert_people_to_prompt(figure1, figure2, topic), system_prompt=system_prompt, input_max_tokens=4096)
+def get_call2(figure1, figure2, topic, df):
+    return call_claude(convert_people_to_prompt(figure1, figure2, topic,df), system_prompt=system_prompt, input_max_tokens=4096)
