@@ -1,3 +1,2 @@
-To sucessfully run the python code, ensure you have the following libraries installed:
-
-pip install anthropic
+This code requires an anthropic API key. Paste and fill in the following into your dotenv file.
+ANTHROPIC_API_KEY = "my-anthropic-api-key"
